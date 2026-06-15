@@ -30,7 +30,8 @@ else:
 
 def iter_tree_paths(store, tree):
     """Recursively walk a tree yielding entry paths (replaces iter_tree_contents)."""
-
+    if isinstance(tree, bytes):
+        tree = store[tree]
     for name, mode, sha in tree.iteritems():
         if stat.S_ISDIR(mode):
             subtree = store[sha]
